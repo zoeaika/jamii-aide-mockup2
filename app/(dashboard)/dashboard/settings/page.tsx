@@ -18,7 +18,7 @@ import {
 export default function SettingsPage() {
   const session = { 
   user: { 
-    name: 'Jamii-Aide Demo User',
+    name: 'Demo User',
     email: 'demo@example.com'
   } 
 };
