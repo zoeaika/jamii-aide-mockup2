@@ -16,20 +16,14 @@ import {
 } from 'lucide-react';
 
 export default function SettingsPage() {
-  const session = { 
-  user: { 
-    name: 'Demo User',
-    email: 'demo@example.com'
-  } 
-};
   const [activeTab, setActiveTab] = useState('profile');
   const [isSaving, setIsSaving] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
   const [profileData, setProfileData] = useState({
-    name: session?.user?.name || '',
-    email: session?.user?.email || '',
-    phone: '',
+    name: 'Demo User',
+    email: 'demo@example.com',
+    phone: '+254 712 345 678',
   });
 
   const [passwordData, setPasswordData] = useState({
@@ -60,8 +54,7 @@ export default function SettingsPage() {
     setSuccessMessage('');
     
     try {
-      // API call would go here
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
       setSuccessMessage('Profile updated successfully!');
       setTimeout(() => setSuccessMessage(''), 3000);
     } catch (error) {
@@ -79,7 +72,6 @@ export default function SettingsPage() {
     
     setIsSaving(true);
     try {
-      // API call would go here
       await new Promise(resolve => setTimeout(resolve, 1000));
       setSuccessMessage('Password changed successfully!');
       setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
@@ -94,7 +86,6 @@ export default function SettingsPage() {
   const handleSaveNotifications = async () => {
     setIsSaving(true);
     try {
-      // API call would go here
       await new Promise(resolve => setTimeout(resolve, 1000));
       setSuccessMessage('Notification preferences saved!');
       setTimeout(() => setSuccessMessage(''), 3000);
@@ -233,7 +224,6 @@ export default function SettingsPage() {
                 </div>
 
                 <div className="space-y-4">
-                  {/* Current Password */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Current Password
@@ -250,7 +240,6 @@ export default function SettingsPage() {
                     </div>
                   </div>
 
-                  {/* New Password */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       New Password
@@ -267,7 +256,6 @@ export default function SettingsPage() {
                     </div>
                   </div>
 
-                  {/* Confirm Password */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Confirm New Password
@@ -282,12 +270,6 @@ export default function SettingsPage() {
                         placeholder="Confirm new password"
                       />
                     </div>
-                  </div>
-
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                    <p className="text-sm text-yellow-800">
-                      <strong>Password requirements:</strong> At least 8 characters, including uppercase, lowercase, and numbers.
-                    </p>
                   </div>
                 </div>
 
@@ -313,7 +295,6 @@ export default function SettingsPage() {
                 </div>
 
                 <div className="space-y-6">
-                  {/* Appointments */}
                   <div>
                     <h3 className="font-medium text-gray-900 mb-3">Appointments</h3>
                     <div className="space-y-3">
@@ -344,70 +325,6 @@ export default function SettingsPage() {
                       </label>
                     </div>
                   </div>
-
-                  {/* Prescriptions */}
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-3">Prescriptions</h3>
-                    <div className="space-y-3">
-                      <label className="flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
-                        <div>
-                          <p className="font-medium text-gray-900">Email Notifications</p>
-                          <p className="text-sm text-gray-600">Refill reminders and updates via email</p>
-                        </div>
-                        <input
-                          type="checkbox"
-                          checked={notifications.emailPrescriptions}
-                          onChange={(e) => setNotifications({ ...notifications, emailPrescriptions: e.target.checked })}
-                          className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                        />
-                      </label>
-
-                      <label className="flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
-                        <div>
-                          <p className="font-medium text-gray-900">SMS Notifications</p>
-                          <p className="text-sm text-gray-600">Refill reminders and updates via SMS</p>
-                        </div>
-                        <input
-                          type="checkbox"
-                          checked={notifications.smsPrescriptions}
-                          onChange={(e) => setNotifications({ ...notifications, smsPrescriptions: e.target.checked })}
-                          className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                        />
-                      </label>
-                    </div>
-                  </div>
-
-                  {/* Medical Reports */}
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-3">Medical Reports</h3>
-                    <div className="space-y-3">
-                      <label className="flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
-                        <div>
-                          <p className="font-medium text-gray-900">Email Notifications</p>
-                          <p className="text-sm text-gray-600">New reports and updates via email</p>
-                        </div>
-                        <input
-                          type="checkbox"
-                          checked={notifications.emailReports}
-                          onChange={(e) => setNotifications({ ...notifications, emailReports: e.target.checked })}
-                          className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                        />
-                      </label>
-
-                      <label className="flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
-                        <div>
-                          <p className="font-medium text-gray-900">SMS Notifications</p>
-                          <p className="text-sm text-gray-600">New reports and updates via SMS</p>
-                        </div>
-                        <input
-                          type="checkbox"
-                          checked={notifications.smsReports}
-                          onChange={(e) => setNotifications({ ...notifications, smsReports: e.target.checked })}
-                          className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                        />
-                      </label>
-                    </div>
-                  </div>
                 </div>
 
                 <div className="flex justify-end pt-4 border-t border-gray-200">
@@ -431,7 +348,6 @@ export default function SettingsPage() {
                   <p className="text-sm text-gray-600">Manage your subscription and payment methods</p>
                 </div>
 
-                {/* Current Plan */}
                 <div className="p-6 bg-blue-50 border-2 border-blue-200 rounded-lg">
                   <div className="flex items-center justify-between mb-4">
                     <div>
@@ -443,29 +359,6 @@ export default function SettingsPage() {
                     </span>
                   </div>
                   <p className="text-gray-700 mb-4">Access to all CHWs and medical records storage</p>
-                  <button className="text-blue-600 hover:text-blue-700 font-medium text-sm">
-                    Upgrade Plan →
-                  </button>
-                </div>
-
-                {/* Payment Method */}
-                <div>
-                  <h3 className="font-medium text-gray-900 mb-3">Payment Method</h3>
-                  <div className="p-4 border border-gray-200 rounded-lg">
-                    <p className="text-gray-600">No payment method on file</p>
-                    <button className="mt-3 text-blue-600 hover:text-blue-700 font-medium text-sm">
-                      Add Payment Method
-                    </button>
-                  </div>
-                </div>
-
-                {/* Billing History */}
-                <div>
-                  <h3 className="font-medium text-gray-900 mb-3">Billing History</h3>
-                  <div className="border border-gray-200 rounded-lg p-8 text-center">
-                    <CreditCard className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-                    <p className="text-gray-600">No billing history yet</p>
-                  </div>
                 </div>
               </div>
             )}
@@ -479,7 +372,6 @@ export default function SettingsPage() {
                 </div>
 
                 <div className="space-y-4">
-                  {/* Language */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Language
@@ -491,7 +383,6 @@ export default function SettingsPage() {
                     </select>
                   </div>
 
-                  {/* Timezone */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Timezone
@@ -501,22 +392,6 @@ export default function SettingsPage() {
                       <option value="Africa/Lagos">West Africa Time (WAT)</option>
                       <option value="Africa/Johannesburg">South Africa Time (SAST)</option>
                     </select>
-                  </div>
-                </div>
-
-                {/* Danger Zone */}
-                <div className="mt-8 pt-8 border-t border-red-200">
-                  <h3 className="font-semibold text-red-600 mb-3 flex items-center">
-                    <Trash2 className="h-5 w-5 mr-2" />
-                    Danger Zone
-                  </h3>
-                  <div className="p-4 border-2 border-red-200 rounded-lg bg-red-50">
-                    <p className="text-sm text-gray-700 mb-3">
-                      Once you delete your account, there is no going back. All your data, including family member profiles, appointments, and medical records will be permanently deleted.
-                    </p>
-                    <button className="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 text-sm">
-                      Delete Account
-                    </button>
                   </div>
                 </div>
               </div>
