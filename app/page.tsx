@@ -31,45 +31,29 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-20 pb-32 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Connect Families
-              <span className="block text-blue-600">Across Borders</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Care for your loved ones back home with trusted Community Health Workers. 
-              Coordinate healthcare, manage prescriptions, and stay connected—all from anywhere in the world.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
-              <Link href="/register" className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-lg text-lg font-semibold flex items-center justify-center">
-                Start Caring Today
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-              <Link href="/register?type=chw" className="px-8 py-4 bg-white text-blue-600 border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition text-lg font-semibold">
-                Become a CHW
-              </Link>
-            </div>
-            
-            {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center gap-8 text-sm text-gray-600">
-              <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                <span>Verified Health Workers</span>
-              </div>
-              <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                <span>Secure Payments</span>
-              </div>
-              <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                <span>24/7 Support</span>
+      {/* Hero Section - Add responsive classes */}
+        <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 text-white py-12 sm:py-16 md:py-20 lg:py-32 overflow-hidden">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div className="text-center lg:text-left">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+                  Professional In-Home Healthcare for Your Loved Ones
+                </h1>
+                <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-blue-100">
+                  Connect with qualified nurses for personalized care at home. Track health, manage appointments, and ensure the best care for your family.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                  <Link href="/register" className="px-6 sm:px-8 py-3 sm:py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition text-center">
+                    Get Started
+                  </Link>
+                  <Link href="/demo" className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition text-center">
+                    View Demo
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* Features Section */}
       <section id="features" className="py-20 bg-white">

@@ -1,87 +1,129 @@
 'use client';
 
 import Link from 'next/link';
-import { Heart, LayoutDashboard, Users, UserCheck, Calendar, DollarSign, Settings, Shield, LogOut, AlertCircle } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+import { Heart, LayoutDashboard, Users, UserCheck, Calendar, DollarSign, Settings, LogOut, Menu, X } from 'lucide-react';
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    { href: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+    { href: '/admin/users', icon: Users, label: 'Users' },
+    { href: '/admin/nurses', icon: UserCheck, label: 'Nurses' },
+    { href: '/admin/appointments', icon: Calendar, label: 'Appointments' },
+    { href: '/admin/payments', icon: DollarSign, label: 'Payments' },
+    { href: '/admin/settings', icon: Settings, label: 'Settings' },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50">
-      {/* Top Bar */}
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-lg bg-white/20 backdrop-blur flex items-center justify-center">
-                <Shield className="h-6 w-6" />
-              </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Top Navigation */}
+      <nav className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50">
+        <div className="px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link href="/" className="flex items-center space-x-2">
+              <Heart className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600" />
               <div>
-                <h1 className="text-xl font-bold">Jamii Aide Admin</h1>
-                <p className="text-xs text-purple-200">System Management Portal</p>
+                <span className="text-lg sm:text-xl font-bold">Jamii Aide</span>
+                <span className="ml-2 px-2 py-1 bg-purple-100 text-purple-600 text-xs font-medium rounded hidden sm:inline-block">
+                  ADMIN
+                </span>
               </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-1">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center space-x-2 px-3 lg:px-4 py-2 rounded-lg transition text-sm lg:text-base ${
+                      isActive
+                        ? 'bg-purple-50 text-purple-600'
+                        : 'text-gray-700 hover:bg-purple-50 hover:text-purple-600'
+                    }`}
+                  >
+                    <Icon className="h-4 w-4 lg:h-5 lg:w-5 flex-shrink-0" />
+                    <span className="hidden lg:inline">{item.label}</span>
+                  </Link>
+                );
+              })}
             </div>
+
+            {/* Right Side */}
             <div className="flex items-center space-x-4">
-              <div className="px-4 py-2 bg-white/10 backdrop-blur rounded-lg">
-                <p className="text-sm font-semibold">Admin User</p>
-                <p className="text-xs text-purple-200">administrator@jamii.com</p>
-              </div>
-              <Link href="/login" className="p-2 hover:bg-white/10 rounded-lg transition">
+              <Link
+                href="/login"
+                className="hidden md:flex items-center space-x-2 text-gray-700 hover:text-red-600 transition"
+              >
                 <LogOut className="h-5 w-5" />
+                <span className="hidden lg:inline">Logout</span>
               </Link>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="h-6 w-6 text-gray-600" />
+                ) : (
+                  <Menu className="h-6 w-6 text-gray-600" />
+                )}
+              </button>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Navigation Tabs */}
-      <div className="bg-white border-b shadow-sm sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6">
-          <nav className="flex space-x-1">
-            <Link href="/admin/dashboard" className="px-6 py-4 border-b-2 border-purple-600 text-purple-600 font-medium hover:bg-purple-50 transition">
-              <div className="flex items-center space-x-2">
-                <LayoutDashboard className="h-5 w-5" />
-                <span>Overview</span>
-              </div>
-            </Link>
-            <Link href="/admin/users" className="px-6 py-4 border-b-2 border-transparent text-gray-600 font-medium hover:bg-gray-50 hover:text-purple-600 transition">
-              <div className="flex items-center space-x-2">
-                <Users className="h-5 w-5" />
-                <span>Users</span>
-              </div>
-            </Link>
-            <Link href="/admin/nurses" className="px-6 py-4 border-b-2 border-transparent text-gray-600 font-medium hover:bg-gray-50 hover:text-purple-600 transition">
-              <div className="flex items-center space-x-2">
-                <UserCheck className="h-5 w-5" />
-                <span>Nurses</span>
-              </div>
-            </Link>
-            <Link href="/admin/appointments" className="px-6 py-4 border-b-2 border-transparent text-gray-600 font-medium hover:bg-gray-50 hover:text-purple-600 transition">
-              <div className="flex items-center space-x-2">
-                <Calendar className="h-5 w-5" />
-                <span>Appointments</span>
-              </div>
-            </Link>
-            <Link href="/admin/payments" className="px-6 py-4 border-b-2 border-transparent text-gray-600 font-medium hover:bg-gray-50 hover:text-purple-600 transition">
-              <div className="flex items-center space-x-2">
-                <DollarSign className="h-5 w-5" />
-                <span>Payments</span>
-              </div>
-            </Link>
-            <Link href="/admin/settings" className="px-6 py-4 border-b-2 border-transparent text-gray-600 font-medium hover:bg-gray-50 hover:text-purple-600 transition">
-              <div className="flex items-center space-x-2">
-                <Settings className="h-5 w-5" />
-                <span>Settings</span>
-              </div>
-            </Link>
-          </nav>
-        </div>
-      </div>
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-gray-200 bg-white">
+            <div className="px-4 py-3 space-y-1">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition ${
+                      isActive
+                        ? 'bg-purple-50 text-purple-600'
+                        : 'text-gray-700 hover:bg-purple-50'
+                    }`}
+                  >
+                    <Icon className="h-5 w-5 flex-shrink-0" />
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
+              <Link
+                href="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-red-50 hover:text-red-600 transition"
+              >
+                <LogOut className="h-5 w-5 flex-shrink-0" />
+                <span>Logout</span>
+              </Link>
+            </div>
+          </div>
+        )}
+      </nav>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <main className="pt-16 px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
         {children}
       </main>
     </div>
